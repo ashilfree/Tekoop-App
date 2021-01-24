@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Embassy Login</title>
+    <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' }}" >
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-image: url({{ '/assets/admin/images/Layer43@1X.png' }});
+            background-repeat: no-repeat;
+            background-size: auto;
+        }
+        .box
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding: 40px;
+            background: rgba(254,254,254,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+        .box h3
+        {
+            margin: 0 0 30px;
+            padding: 0;
+            color: #000;
+            text-align: center;
+            font-weight: bold;
+        }
+        .box .inputBox
+        {
+            position: relative;
+            background-color: #ffffff;
+            margin-bottom: 40px;
+        }
+        .box .inputBox input
+        {
+            width: 100%;
+            padding: 20px 10px;
+            color: #5F441F;
+            letter-spacing: 1px;
+            border: 1px solid #fff;
+            outline: none;
+            background: transparent;
+        }
+        .box .inputBox label
+        {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            letter-spacing: 1px;
+            padding: 20px 0;
+            color: #5F441F;
+            pointer-events: none;
+            transition: .5s;
+
+        }
+        .box .inputBox input:focus ~ label,
+        .box .inputBox input:valid ~ label
+        {
+            top: -18px;
+            left: 0;
+            color: #03a9f4;
+        }
+        .box input[type="submit"]
+        {
+            width: 100%;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #65BC46;
+            padding: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* On screens that are 992px or less, set the background color to blue */
+        @media screen and (min-width: 601px) {
+            .box{
+                width: 500px;
+            }
+            .box img{
+                width: 175px;
+            }
+            .box h3{
+                font-size: 26px;
+            }
+            .box .inputBox input{
+                font-size: 20px;
+            }
+            .box .inputBox label{
+                font-size: 20px;
+            }
+            .box .inputBox input:focus ~ label,
+            .box .inputBox input:valid ~ label
+            {
+                font-size: 12px;
+            }
+            .box input[type="submit"]{
+                font-size:20px;
+            }
+        }
+
+        /* On screens that are 600px or less, set the background color to olive */
+        @media screen and (max-width: 600px) {
+            .box{
+                width: 320px;
+            }
+            .box img{
+                width: 100px;
+            }
+            .box h3{
+                font-size: 17px;
+            }
+            .box .inputBox input{
+                font-size: 15px;
+            }
+            .box .inputBox label{
+                font-size: 15px;
+            }
+            .box .inputBox input:focus ~ label,
+            .box .inputBox input:valid ~ label
+            {
+                font-size: 10px;
+            }
+            .box input[type="submit"]{
+                font-size:17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="box text-center">
+    <img src="{{ '/assets/admin/images/Layer35@1X.png' }}" alt="">
+    <h3>TeKoop cPanel</h3>
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.message | trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+    <form action="{{ path('admin.login') }}" method="post">
+        <div class="inputBox">
+            <input id="uname" type="text" name="_username"  value="{{ last_username }}" required>
+            <label>Username</label>
+        </div>
+        <div class="inputBox">
+            <input id="pwd" type="password" name="_password" required>
+            <label>Password</label>
+        </div>
+        <input type="submit" name="" value="Login">
+    </form>
+</div>
+</body>
+
+</html>
