@@ -42,4 +42,24 @@ class Mailer
 
         $this->mailer->send($message);
     }
+
+    public function sendForgetPasswordEmail(
+        User $user,
+        string $token
+    )
+    {
+        $body = $this->twig->render(
+            'email/forget_password.html.twig',   [
+                'user' => $user,
+                'newPassword' => $token
+            ]
+        );
+
+        $message = (new Swift_Message('New Password!'))
+            ->setFrom('mohammed@genesistech-dz.com')
+            ->setTo($user->getEmail())
+            ->setBody($body, 'text/html');
+
+        $this->mailer->send($message);
+    }
 }

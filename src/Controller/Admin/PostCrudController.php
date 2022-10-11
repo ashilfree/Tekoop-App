@@ -37,8 +37,7 @@ class PostCrudController extends AbstractCrudController
 	        DateTimeField::new('postedAt'),
 	        AssociationField::new('category'),
 	        AssociationField::new('owner'),
-	        AssociationField::new('address'),
-	        AssociationField::new('phone')
+	        AssociationField::new('address')
 //	        CollectionField::new('colors')->setFormTypeOptions(['mapped' => false])->setEntryType('App\Form\ColorType')
         ];
     }

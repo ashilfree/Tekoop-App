@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use App\Controller\FacebookAction;
 use App\Controller\GoogleAction;
+use App\Controller\ForgetPasswordAction;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -75,6 +76,15 @@ use App\Controller\GoogleAction;
  *                 "groups"={"find-or-create-google-user"}
  *             },
  *             "defaults"={"_api_receive"=false}
+ *     },
+ *          "forget_password"={
+ *             "method"="POST",
+ *             "path"="/users/forgetpassword",
+ *             "controller"=ForgetPasswordAction::class,
+ *             "denormalization_context"={
+ *                 "groups"={"forget_password"}
+ *             },
+ *             "defaults"={"_api_receive"=false}
  *     }
  *     },
  * )
@@ -96,6 +106,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(groups={"post"})
      * @Groups({"post", "get-blog-post-with-author", "get-comment-with-author", "get-posts", "find-or-create-facebook-user", "find-or-create-google-user"})
      * @Assert\Length(min="6", max="30", groups={"post"})
      */
@@ -176,6 +187,14 @@ class User implements UserInterface
     private $fullName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"post", "get-blog-post-with-author", "get-comment-with-author", "get-posts"})
+     * @Assert\Length(min="10", max="14", groups={"post"})
+     * @Assert\NotBlank(groups={"post"})
+     */
+    private $phone;
+
+    /**
      * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
      * @ApiSubresource()
      * @Groups({"put", "get-comment-with-author", "get-blog-post-with-author", "find-or-create-facebook-user", "find-or-create-google-user"})
@@ -218,11 +237,6 @@ class User implements UserInterface
     private $addresses;
 
     /**
-     * @ORM\OneToMany(targetEntity=Phone::class, mappedBy="user")
-     */
-    private $phones;
-
-    /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="owner")
      */
     private $comments;
@@ -253,7 +267,6 @@ class User implements UserInterface
         $this->confirmationToken = null;
         $this->posts = new ArrayCollection();
         $this->addresses = new ArrayCollection();
-        $this->phones = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -368,6 +381,18 @@ class User implements UserInterface
     public function setFullName(?string $fullName): self
     {
         $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -502,36 +527,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Phone[]
-     */
-    public function getPhones(): Collection
-    {
-        return $this->phones;
-    }
-
-    public function addPhone(Phone $phone): self
-    {
-        if (!$this->phones->contains($phone)) {
-            $this->phones[] = $phone;
-            $phone->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhone(Phone $phone): self
-    {
-        if ($this->phones->removeElement($phone)) {
-            // set the owning side to null (unless already changed)
-            if ($phone->getUser() === $this) {
-                $phone->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->getUsername();
@@ -614,6 +609,7 @@ class User implements UserInterface
             'email' => $this->getEmail(),
             'username' => $this->getUsername(),
             'fullName' => $this->getFullName(),
+            'phone' => $this->getPhone(),
             'image' => $this->getImage() ? ['id' => $this->getImage()->getId(), 'url' => $this->getImage()->getUrl()] : null
             // 'createdAt' => $this->getCreatedAt(),
             // 'updatedAt' => $this->getUpdatedAt()

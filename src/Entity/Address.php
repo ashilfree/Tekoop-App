@@ -10,7 +10,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
  * @ApiResource(
- *
+ *     collectionOperations={
+ *         "get",
+ *         "post"={
+ *             "access_control"="is_granted('ROLE_POSTER')",
+ *         }
+ *     },
  * )
  */
 class Address
@@ -28,6 +33,11 @@ class Address
      * @Groups({"get-blog-post-with-author", "get-posts"})
      */
     private $location;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
 
     /**
      * @ORM\Column(type="float")
@@ -50,12 +60,12 @@ class Address
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $zipCode;
+    private $province;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
+    private $country;
 
     public function getId(): ?int
     {
@@ -70,6 +80,18 @@ class Address
     public function setLocation(string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
@@ -110,26 +132,26 @@ class Address
         return $this;
     }
 
-    public function getZipCode(): ?string
+    public function getProvince(): ?string
     {
-        return $this->zipCode;
+        return $this->province;
     }
 
-    public function setZipCode(string $zipCode): self
+    public function setProvince(string $province): self
     {
-        $this->zipCode = $zipCode;
+        $this->province = $province;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getCountry(): ?string
     {
-        return $this->city;
+        return $this->country;
     }
 
-    public function setCity(string $city): self
+    public function setCountry(string $country): self
     {
-        $this->city = $city;
+        $this->country = $country;
 
         return $this;
     }

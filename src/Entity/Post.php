@@ -112,14 +112,6 @@ class Post implements OwnerEntityInterface, PublishedDateEntityInterface
 	private $address;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity=Phone::class)
-	 * @ORM\JoinColumn(nullable=false)
-	 * @ApiSubresource()
-	 * @Groups({"post", "get-blog-post-with-author", "get-posts"})
-	 */
-	private $phone;
-
-	/**
 	 * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post")
 	 * @ApiSubresource()
 	 * @Groups({"get-blog-post-with-author"})
@@ -245,7 +237,7 @@ class Post implements OwnerEntityInterface, PublishedDateEntityInterface
 		return $this->category;
 	}
 
-	public function setCategory(Category $category)
+	public function setCategory(Category $category):Post
 	{
 		$this->category = $category;
 
@@ -272,18 +264,6 @@ class Post implements OwnerEntityInterface, PublishedDateEntityInterface
 	public function setAddress(?Address $address): self
 	{
 		$this->address = $address;
-
-		return $this;
-	}
-
-	public function getPhone(): ?Phone
-	{
-		return $this->phone;
-	}
-
-	public function setPhone(?Phone $phone): self
-	{
-		$this->phone = $phone;
 
 		return $this;
 	}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "edf57d626123f8c6f325ace143965fcc",
+    "content-hash": "b4056013def277722167c938d7c0e7d4",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1069,7 +1069,7 @@
             },
             "require": {
                 "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7 || ^8"
+                "php": "^7"
             },
             "replace": {
                 "ocramius/package-versions": "1.11.99"
@@ -1521,7 +1521,7 @@
                 "doctrine/cache": "^1.0",
                 "doctrine/event-manager": "^1.0",
                 "ext-pdo": "*",
-                "php": "^7.3 || ^8"
+                "php": "^7.2"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^8.1",
@@ -3005,7 +3005,7 @@
                 "mikey179/vfsstream": "~1.5",
                 "phpmd/phpmd": "~2.2",
                 "phpunit/php-invoker": "~1.1",
-                "phpunit/phpunit": "^5.7 || ^7.3",
+                "phpunit/phpunit": "^5.7 || ^7.2",
                 "squizlabs/php_codesniffer": "~2.3"
             },
             "suggest": {
@@ -4430,6 +4430,32 @@
                 }
             ],
             "time": "2020-12-08T18:02:06+00:00"
+        },
+        {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/apache-pack/issues",
+                "source": "https://github.com/symfony/apache-pack/tree/master"
+            },
+            "time": "2017-12-12T01:46:35+00:00"
         },
         {
             "name": "symfony/asset",
@@ -9611,7 +9637,7 @@
             "require": {
                 "ext-simplexml": "*",
                 "jms/metadata": "^2.4",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.2",
                 "symfony/config": "^4.4 || ^5.0",
                 "symfony/console": "^4.4 || ^5.0",
                 "symfony/dependency-injection": "^4.4 || ^5.0",

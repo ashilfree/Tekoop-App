@@ -86,11 +86,15 @@ class Category
 
 	/**
 	 * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categories")
+	 * @ApiSubresource()
+	 * @Groups("get-categories")
 	 */
 	private $parent;
 
 	/**
-	 * @ORM\OneToMany(targetEntity=Category::class, mappedBy="parent")
+	 * @ORM\OneToMany(targetEntity=Category::class, mappedBy="parent",  cascade={"remove"})
+	 * @ApiSubresource()
+	 * @Groups("get-categories")
 	 */
 	private $categories;
 
